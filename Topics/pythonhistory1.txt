@@ -1,0 +1,4 @@
+Python is a high-level, interpreted, and general-purpose programming language. 
+        Python's design philosophy emphasizes code readability with its notable use of significant whitespace. 
+        It supports multiple programming paradigms, including structured (particularly procedural), object-oriented, and functional programming. Python is dynamically typed and garbage-collected. 
+        It has a large and comprehensive standard library. 
