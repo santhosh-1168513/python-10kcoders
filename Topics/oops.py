@@ -776,6 +776,34 @@ s2 = Student2("john", 80, "10th")
 s1.display()
 s2.display()
 
+# example program of inheritance 
+class Ottsubscription:
+    def __init__(self, subscription_id, subscription_name, subscription_price, subscription_duration, total_payment):
+        self.subscription_id = subscription_id
+        self.subscription_name = subscription_name
+        self.subscription_price = subscription_price
+        self.subscription_duration = subscription_duration
+        self.total_payment = total_payment
+
+    def subscribe(self):
+        print(f"subscriber with {self.subscription_id} has subscribed to {self.subscription_name} for {self.subscription_duration} months at a price of {self.subscription_price} per month. Total payment is {self.total_payment}")
+
+    def unsubscribe(self):
+        print(f"subscriber with {self.subscription_id} has unsubscribed from {self.subscription_name}")
+
+class PremiumSubscription(Ottsubscription):
+    def __init__(self, subscription_id, subscription_name, subscription_price, subscription_duration, total_payment, premium_features):
+        super().__init__(subscription_id, subscription_name, subscription_price, subscription_duration, total_payment)
+        self.premium_features = premium_features
+
+    def max_screen(self, screens):
+        print(f"premium subscription allows {screens} screens to watch simultaneously")
+
+netflix = PremiumSubscription(101, "Netflix", 500, 12, 6000, "ad-free streaming, offline downloads")
+netflix.subscribe()
+netflix.max_screen(4)
+
+
 #######################################################################
 # polynorphism is a concept in object-oriented programming that allows objects of different classes to be treated as objects of a common superclass. 
 # It enables a single interface to represent different underlying forms (data types).
@@ -859,3 +887,137 @@ a = Airplane()
 flying(a) # calling the fly method of Airplane class
 s = superman()
 flying(s) # calling the fly method of superman class
+
+
+# merthod overloading is a feature of polymorphism where multiple methods can have the same name but different parameters (number or type) within the same class.
+# python does not support method overloading directly, but we can achieve it using default arguments or variable-length arguments.
+
+class Calculator:
+    def add(self, a, b, c):
+        return a + b + c 
+c = Calculator()
+print(c.add(10, 20))
+print(c.add(10, 20, 30)) # calling the add method with 3 arguments
+
+
+class Calculator:
+    def add(self, *args):
+        if args==0:
+            return 0
+        elif len(args)==2:
+            return sum(args)
+        else:
+            return sum(args)
+c = Calculator()
+print(c.add(10, 20))
+print(c.add(10, 20, 30))
+print(c.add(10, 20, 30, 40))
+print(c.add()) # calling the add method with no arguments
+
+
+print(10+20)
+print("hello"+"world")
+print([1,2,3]+[4,5,6])
+print(["10+20+30"]+[40,50,60])
+
+
+
+# dunder methods are special methods in python classes that have double underscores at the beginning and end of their names.
+class Bank:
+    def __init__(self, ownername, amount):
+        self.ownername = ownername
+        self.amount = amount
+    def __add__(self, other):
+        return self.amount + other.amount
+
+bankaccount = Bank("king", 10000)
+bankaccount1 = Bank("queen", 20000)
+totalamount = bankaccount + bankaccount1
+print(f"total amount in the bank is {totalamount}")
+
+class Item:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+    def __ge__(self, other):
+        return self.price >= other.price
+
+    def  __le__(self, other):
+        return self.price <= other.price
+
+item1 = Item("mobile", 10000)
+item2 = Item("laptop", 50000)
+greater = item1 >= item2
+lesser = item1 <= item2
+print(f"item1 is greater than item2: {greater}")
+print(f"item1 is lesser than item2: {lesser}")
+
+# student class with dunder method perform addition of marks and create a object of internal marks and external marks and perform addition of marks using dunder method attribute are student name and attendance
+class Student:
+    def __init__(self, sname, marks):
+        self.sname = sname
+        self.marks = marks
+
+    def __add__(self, other):
+        return self.marks + other.marks
+
+    def __gt__(self, other):
+        return self.marks > other.marks
+
+    def __le__(self, other):
+        return self.marks <= other.marks
+
+external_marks = Student("santhosh", 80)
+internal_marks = Student("siva", 70)
+total_marks = external_marks + internal_marks
+
+es2 = Student("john", 90)
+es3 = Student("jane", 85)
+ts2 = es2 + es3
+
+print(f"total marks of {external_marks.sname} and {internal_marks.sname} is {total_marks}")
+print(f"total marks of {es2.sname} and {es3.sname} is {ts2}")
+
+topper = total_marks > ts2
+print(f"{total_marks} total marks is greater than {ts2}: {topper}")
+
+lower = total_marks <= ts2
+print(f"{total_marks} total marks is lesser than or equal to {ts2}: {lower}")
+
+# example 
+# paymentmethod is parent class and pay is instance method and gpay, paytm, phonepe are child classes and override the pay method and create a object of gpay, paytm, phonepe and call the pay method
+class PaymentMethod:
+    def pay(self, amount):
+        print(f"paying {amount} using PaymentMethod")
+
+class GPay(PaymentMethod):
+    def pay(self, amount):
+        print(f"paying {amount} using GPay")
+
+class Paytm(PaymentMethod):
+    def pay(self, amount):
+        print(f"paying {amount} using Paytm")
+
+class PhonePe(PaymentMethod):
+    def pay(self, amount):
+        print(f"paying {amount} using PhonePe")
+
+# g = GPay()
+# p = Paytm()
+# ph = PhonePe()
+
+# g.pay(1000)
+# p.pay(2000)
+# ph.pay(3000)
+
+def checkout(payment_method, amount):
+    payment_method.pay(amount)
+
+p = Paytm()
+g = GPay()
+ph = PhonePe()
+checkout(p, 2000)
+checkout(g, 3000)
+
+
