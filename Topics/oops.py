@@ -1021,3 +1021,47 @@ checkout(p, 2000)
 checkout(g, 3000)
 
 
+###############################################################
+# abstraction is a concept in object-oriented programming that allows you to define the essential characteristics of an object while hiding the unnecessary details.
+# It focuses on what an object does rather than how it does it.
+
+from abc import ABC, abstractmethod
+
+class Car(ABC):
+    @abstractmethod
+    def start(self):
+        self
+    @abstractmethod
+    def stop(self):
+        pass
+
+class PetrolCar(car):
+    self
+
+petrol = PetrolCar()
+petrol.start()
+petrol.stop()
+# not implemented error will be raised because the abstract methods are not implemented in the child class.
+
+
+
+from abc import ABC, abstractmethod
+class Car(ABC):
+    @abstractmethod
+    def start(self):
+        self
+    @abstractmethod
+    def stop(self):
+        pass
+
+class PetrolCar(Car):
+    def start(self):
+        print("Petrol car is starting")
+        print("car is moving")
+    def stop(self):
+        print("Petrol car is stopping")
+        print("car is stopped")
+
+petrol = PetrolCar()
+petrol.start()
+petrol.stop()
