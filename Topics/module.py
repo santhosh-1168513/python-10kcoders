@@ -290,7 +290,7 @@ print(os.path.exists('C:\\Users\\Santhosh\\Desktop\\NewFolder'))  # check if the
 import sys
 print(sys.version)
 print(sys.platform)
-
+print(sys.argv)
 print("program started")
 sys.exit()  # exit the program
 print("program ended")  # this line will not be executed because the program has exited
@@ -306,6 +306,22 @@ list = [1, 2, 3, [4, 5]]
 list[0]= 1000
 list2 = copy.copy(list)  # shallow copy
 print(f"original list: {list}, shallow copy: {list2}")
+
+
+import copy
+list1 = [1,2,3,4]
+list2 = copy.copy(list1)
+list2[0] = 10
+print(list1)
+print(list2)
+
+
+import copy
+list1 =[1,2,[3,4]]
+list2 = copy.copy(list1)
+list2[2][0] = 100
+print(list1)
+print(list2)
 
 # deep copy creates a new object that is a copy of the original object, and it also creates copies of all the objects that are referenced by the original object. This means that if you modify a mutable object in the deep copy, it will not affect the original object.
 import copy

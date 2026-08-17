@@ -176,3 +176,60 @@ employee3.display_details()
 # @property: A property allows you to access a method like an attribute (variable). It is mainly used to control access to private variables while keeping the syntax simple.
 # A getter is a method used to read a private variable.
 # A setter is a method used to set or update the value of a private variable. It allows you to add validation or additional logic when modifying the variable's value.
+
+# --------------------------------- example5 -----------------------------
+
+
+class Bankaccount:
+    def __init__(self, account_number, account_holder, balance):
+        self.__account_number = account_number
+        self.__account_holder = account_holder
+        self.__balance = balance
+
+    @property
+    def balance(self):
+        return self.__balance
+
+    @balance.setter
+    def balance(self, new_balance):
+        if new_balance <= 0:
+            print("Balance must be greater than 0.")
+        else:
+            self.__balance = new_balance
+            print(f"Balance updated to {self.__balance}")
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+            print(f"₹{amount} deposited successfully.")
+        else:
+            print("Deposit amount must be greater than 0.")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("Withdrawal amount must be greater than 0.")
+        elif amount > self.__balance:
+            print("Insufficient balance.")
+        else:
+            self.__balance -= amount
+            print(f"₹{amount} withdrawn successfully.")
+
+    def display_account(self):
+        print("\n----------------------------")
+        print(f"Account Number : {self.__account_number}")
+        print(f"Account Holder : {self.__account_holder}")
+        print(f"Balance        : ₹{self.__balance}")
+        print("----------------------------")
+
+
+
+bank1 = Bankaccount("9530902932", "Santhosh", 1000)
+bank1.deposit(500)
+bank1.withdraw(200)
+bank1.balance = -100  # Invalid balance update
+
+bank1.display_account()
+
+
+
+    

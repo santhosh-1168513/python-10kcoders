@@ -17,6 +17,7 @@ else:
     print(f"{c} is the largest number")
 
 #find the factorial of a number
+#example 5! = 5 × 4 × 3 × 2 × 1 = 120
 num = int(input("enter the number:"))
 for i in range(1, num+1):
     fact = 1
@@ -25,6 +26,7 @@ for i in range(1, num+1):
 print(f"factorial of {num} is {fact}")
 
 #finacci serice
+# example 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
 n = int(input("Enter the number of terms: "))
 a = 0
 b = 1
@@ -143,3 +145,13 @@ if temp == num:
     print("number is amstrong")
 else:
     print("not amstrong number")
+
+
+lst = [4, 1, 2, 3]
+result = []
+for i in range(len(lst)):
+    for j in range(i + 1, len(lst)):
+        if lst[i] < lst[j]:
+            result.append(lst[i])
+            break
+print(result)

@@ -108,6 +108,7 @@ def even_odd(*numbers):
             print(f"{num} is odd")
 
 even_odd(1,2,3,4,5,6,7,8,9,10)
+print(type(even_odd(1,2,3,4,5,6,7,8,9,10)))
 
 def verify(a):
     if a % 2 == 0:
@@ -364,3 +365,109 @@ def add(c,b):
 add(10,20)
 
 
+d = 100
+def fun():
+    global d # declare d as global to modify it inside the function
+    d = d+100
+    print(d) # Output: 200
+print(d) # Output: 100
+fun()
+print(d) # Output: 200
+
+a = 50
+def fun():
+    a = 100  # This creates a new local variable 'a' inside the function
+    print(a)  # Output: 100 (local variable)
+fun()
+
+
+a = 50
+def fun():
+    global a
+    a = 100
+    print(a)  # Output: 100 (global variable)
+print(a) 
+fun()
+print(a)  # Output: 100 (global variable modified by the function)
+
+def fun(a):
+    a = 5
+x = 4
+fun(x)
+print(x)  # Output: 4 (x remains unchanged because integers are immutable and passed by value)
+
+def fun(a):
+    a.append(4)
+x = [1, 2, 3]
+fun(x)
+print(x)  
+
+def student():
+    name = "santhosh"
+    print(name)
+
+student()  # Output: santhosh
+
+college = "alt"
+def display_college():
+    global college
+    college = "alts"
+    print(college)
+print(college)  
+display_college()
+print(college)  # Output: alts (global variable modified by the function)
+
+def fun1():
+    a = 10
+    b = 5
+    def fun2():
+        print(a)
+        print(b)
+    fun2()  # Call the inner function
+fun1()  # Output: 10, 5 (inner function can access outer function's variables)`
+
+def outer_function():
+    x = 5
+    def inner_function():
+        print(x)  # Accessing variable from outer function
+        return inner_function()  # Call the inner function'
+a = outer_function()  # Call the outer function
+print(a)  # Output: 5 (the value of x from the outer function)`
+
+def outer():
+    print("This is the outer function.")
+    def inner():
+        print("This is the inner function.")
+    inner()  # Call the inner function
+outer()
+
+def greeting():
+    def message():
+        print("Hello, welcome to the program!")
+    message()  # Call the inner function
+greeting()  # Output: Hello, welcome to the program!
+
+def outer_function():
+    name = "santhosh"
+    def inner_function():
+        print(f"Hello, {name}!")  # Accessing variable from outer function
+    inner_function()  # Call the inner function 
+outer_function()  # Output: Hello, santhosh!
+
+def calculate():
+    a = 10
+    b = 20
+    def add():
+        return a + b  # Accessing variables from outer function
+        print(add)
+    add()
+calculate()  # Output: 30 (the sum of a and b from the outer function)
+
+def school():
+    def techer():
+        print("This is the teacher function.")
+    def student():
+        print("This is the student function.")
+    techer()  # Call the teacher function
+    student()  # Call the student function
+school()  # Output: This is the teacher function. This is the student function.
