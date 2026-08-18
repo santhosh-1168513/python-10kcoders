@@ -328,96 +328,148 @@ import numpy as np
 # print(np.mean(marks)) # mean is the average of the numbers in the array. It is calculated by summing all the elements and dividing by the number of elements.
 # print(np.median(marks))
 
-salary = np.random.randint([21000,13000,45000,70000,24000,3300,10000000])
-print(np.mean(salary))
+# salary = np.random.randint([21000,13000,45000,70000,24000,3300,10000000])
+# print(np.mean(salary))
 
-# unique values in numpy array
-marks = np.array([89, 90, 91, 90, 77, 77, 91,36,45,37,93,35,170])
-print(np.unique(marks))
+# # unique values in numpy array
+# marks = np.array([89, 90, 91, 90, 77, 77, 91,36,45,37,93,35,170])
+# print(np.unique(marks))
 
-values,count=np.unique(marks,return_counts=True)  
-# print(values)  # Unique values in the arra
-# print(count)
+# values,count=np.unique(marks,return_counts=True)  
+# # print(values)  # Unique values in the arra
+# # print(count)
 
-# for  mode, we not perform in mode directly
-mode = values[np.argmax(count)]
-print(mode)  # Mode of the array
+# # for  mode, we not perform in mode directly
+# mode = values[np.argmax(count)]
+# print(mode)  # Mode of the array
 
-print(np.argmax(marks))  # Index of the maximum value, not value itself
-print(np.argmin(marks))  # Index of the minimum value, not value itself
+# print(np.argmax(marks))  # Index of the maximum value, not value itself
+# print(np.argmin(marks))  # Index of the minimum value, not value itself
 
-# range 
-r = np.max(marks) - np.min(marks)
-print(r)  # Range of the array
+# # range 
+# r = np.max(marks) - np.min(marks)
+# print(r)  # Range of the array
 
-# variance
-print(np.var(marks))
+# # variance
+# print(np.var(marks))
 
-# standard deviation
-print(np.std(marks))
+# # standard deviation
+# print(np.std(marks))
 
-# Percentile 
-res = np.percentile(marks, 50)  
+# # Percentile 
+# res = np.percentile(marks, 50)  
+# print(res)
+
+# # quantile
+# q1 = np.quantile(marks, 0.25)
+# q2 = np.quantile(marks, 0.50)
+# q3 = np.quantile(marks, 0.75)
+
+# print(q1)  
+# print(q2)
+# print(q3)
+
+# # IQR 
+# # iqr is the interquartile range, which is the difference between the third quartile (Q3) and the first quartile (Q1). 
+# # It measures the spread of the middle 50% of the data and is less affected by outliers than the range.
+# iqr = q3 -q1
+# print(f" IQR : {iqr}")
+# lower_bound = q1 - 1.5 * iqr
+# upper_bound = q3 + 1.5 * iqr
+# print(f"Lower Bound: {lower_bound}, Upper Bound: {upper_bound}")
+
+# outliers = marks[(marks < lower_bound) | (marks > upper_bound)]
+# print(f"Outliers: {outliers}")
+
+# marks = marks[(marks >= lower_bound) & (marks <= upper_bound)]
+# print(f"Marks after removing outliers: {np.sort(marks)}")
+
+# print("-------------------------------------")
+# # task : create a numpy array of 25 random integers between 1 and 100,
+# # then replace the last element
+
+# # to find the outliters 
+# import random
+# np.random.seed(10)
+# v = np.random.randint(1,100,25)
+# v[24] = 1000
+# v[9] = -4585
+# v[5] = -256
+# print(v)
+
+# q1 = np.quantile(v, 0.25)
+# q2 = np.quantile(v, 0.50)
+# q3 = np.quantile(v, 0.75)
+
+# print(q1)
+# print(q2)
+# print(q3)
+
+# iqr = q3 - q1
+# lower_bound = q1 - 1.5 * iqr
+# upper_bound = q3 + 1.5 * iqr
+# print(f"Lower Bound: {lower_bound}, Upper Bound: {upper_bound}")
+
+# outliers = v[(v < lower_bound) | (v > upper_bound)]
+# print(f"Outliers: {outliers}")
+
+# value = v[(v >= lower_bound) & (v <= upper_bound)]
+# print(f"values of removing outlier : {np.sort(value)}")
+
+# # cumsum() - Cumulative sum of the array elements
+# marks = np.array([89, 90, 91, 90, 77, 77, 91,36,45,37])
+# res = np.cumsum(marks)
+# print(res)  
+
+####################################### day 5 #######################################
+
+# # matrix 
+# a = np.random.randint(1,7,6)
+# a = a.reshape(2,3)  # Reshape the array into a 2x3 array
+
+# b = np.random.randint(1,7,6)
+# b = b.reshape(2,3)  # Reshape the array into a 2x3 array
+
+# result = a + b  # Element-wise addition of the two matrices
+# print(result)
+
+# # multiplication of two matrices
+# # we used the dot product for matrix multiplication (np.dot() or the @ operator).
+# # and by using matmul() function we can also perform the matrix multiplication
+
+# # example of matrix multiplication
+# a = np.random.randint(1,7,6)
+# b = np.random.randint(1,7,6)
+# a = a.reshape(2,3)  # Reshape the array into a 2
+# b = b.reshape(3,2)  # Reshape the array into a 3x2 array
+
+# result = np.dot(a,b)  # Matrix multiplication using dot product
+# result1 = a @ b  # Matrix multiplication using @ operator
+# result2 = np.matmul(a,b)  # Matrix multiplication using matmul() function
+# print(result)
+# print(result1)
+# print(result2)
+
+# # transpose of a matrix
+# # The transpose of a matrix is obtained by flipping the matrix over its diagonal,
+# # which means that the rows become columns and the columns become rows.
+
+# arr = np.array([1,2],
+#                [3,4])
+# res = np.linalg.det(arr) # linalg is liner algebra and det is determinant of the matrix 
+
+# np.linalg.solve() is a function in NumPy that solves a system of linear equations of the form Ax = b, where A is a square matrix and b is a vector. 
+# It returns the solution vector x.
+a = np.array([[2, 1],
+              [1, 1]])
+b = np.array([5, 3])
+res = np.linalg.solve(a, b)  
 print(res)
 
-# quantile
-q1 = np.quantile(marks, 0.25)
-q2 = np.quantile(marks, 0.50)
-q3 = np.quantile(marks, 0.75)
+x = np.array([[3,2],
+              [4,1]])
+y = np.array([5,2])
+res1 = np.linalg.solve(x,y)
+print(res1)
 
-print(q1)  
-print(q2)
-print(q3)
-
-# IQR 
-# iqr is the interquartile range, which is the difference between the third quartile (Q3) and the first quartile (Q1). 
-# It measures the spread of the middle 50% of the data and is less affected by outliers than the range.
-iqr = q3 -q1
-print(f" IQR : {iqr}")
-lower_bound = q1 - 1.5 * iqr
-upper_bound = q3 + 1.5 * iqr
-print(f"Lower Bound: {lower_bound}, Upper Bound: {upper_bound}")
-
-outliers = marks[(marks < lower_bound) | (marks > upper_bound)]
-print(f"Outliers: {outliers}")
-
-marks = marks[(marks >= lower_bound) & (marks <= upper_bound)]
-print(f"Marks after removing outliers: {np.sort(marks)}")
-
-print("-------------------------------------")
-# task : create a numpy array of 25 random integers between 1 and 100,
-# then replace the last element
-
-
-import random
-np.random.seed(10)
-v = np.random.randint(1,100,25)
-v[24] = 1000
-v[9] = -4585
-v[5] = -256
-print(v)
-
-q1 = np.quantile(v, 0.25)
-q2 = np.quantile(v, 0.50)
-q3 = np.quantile(v, 0.75)
-
-print(q1)
-print(q2)
-print(q3)
-
-iqr = q3 - q1
-lower_bound = q1 - 1.5 * iqr
-upper_bound = q3 + 1.5 * iqr
-print(f"Lower Bound: {lower_bound}, Upper Bound: {upper_bound}")
-
-outliers = v[(v < lower_bound) | (v > upper_bound)]
-print(f"Outliers: {outliers}")
-
-value = v[(v >= lower_bound) & (v <= upper_bound)]
-print(f"values of removing outlier : {np.sort(value)}")
-
-# cumsum() - Cumulative sum of the array elements
-marks = np.array([89, 90, 91, 90, 77, 77, 91,36,45,37])
-res = np.cumsum(marks)
-print(res)  
 
