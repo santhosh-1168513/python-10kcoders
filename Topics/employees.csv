@@ -1,0 +1,41 @@
+Employee_ID,Name,Age,Gender,Department,Job_Title,Salary,Bonus,Experience,Joining_Date,City,Performance,Projects,Email,Phone,Status
+E001,Ravi Kumar,25,Male,IT,Developer,45000,5000,2,2022-06-15,Bangalore,Excellent,4,ravi@gmail.com,9876543210,Active
+E002,Priya Sharma,28,Female,HR,HR Executive,42000,4000,4,2020-03-10,Chennai,Good,3,priya@gmail.com,9876543211,Active
+E003,Arun Raj,32,Male,IT,Senior Developer,75000,8000,8,2017-08-21,Bangalore,Excellent,7,arun@gmail.com,9876543212,Active
+E004,Meena Devi,24,Female,Sales,Sales Executive,35000,3000,1,2023-01-12,Hyderabad,Average,2,meena@gmail.com,9876543213,Active
+E005,Kiran Kumar,30,Male,Finance,Accountant,55000,6000,6,2019-11-05,Mumbai,Good,5,kiran@gmail.com,9876543214,Active
+E006,Anitha Rao,27,Female,IT,Tester,48000,4500,3,2021-07-18,Bangalore,Good,4,anitha@gmail.com,9876543215,Active
+E007,Suresh Babu,35,Male,Sales,Sales Manager,80000,10000,10,2015-02-25,Chennai,Excellent,9,suresh@gmail.com,9876543216,Active
+E008,Divya Sri,26,Female,Marketing,Marketing Executive,40000,3500,3,2021-09-14,Hyderabad,Average,3,divya@gmail.com,9876543217,Active
+E009,Vijay Kumar,29,Male,IT,Developer,52000,5000,5,2020-05-20,Pune,Good,5,vijay@gmail.com,9876543218,Active
+E010,Lakshmi Devi,31,Female,Finance,Financial Analyst,65000,7000,7,2018-04-16,Mumbai,Excellent,6,lakshmi@gmail.com,9876543219,Active
+E011,Ramesh Kumar,23,Male,IT,Junior Developer,32000,2500,1,2023-06-01,Bangalore,Average,2,ramesh@gmail.com,9876543220,Active
+E012,Swathi Reddy,27,Female,HR,Recruiter,39000,3000,3,2021-10-11,Hyderabad,Good,4,swathi@gmail.com,9876543221,Active
+E013,Manoj Kumar,34,Male,Finance,Senior Accountant,70000,7500,9,2016-12-19,Chennai,Excellent,8,manoj@gmail.com,9876543222,Active
+E014,Pooja Singh,25,Female,Marketing,Content Writer,36000,2500,2,2022-02-14,Pune,Good,3,pooja@gmail.com,9876543223,Active
+E015,Ajay Kumar,38,Male,IT,Tech Lead,95000,12000,14,2012-07-30,Bangalore,Excellent,12,ajay@gmail.com,9876543224,Active
+E016,Neha Gupta,29,Female,Sales,Sales Executive,37000,3000,4,2020-08-17,Mumbai,Average,3,neha@gmail.com,9876543225,Active
+E017,Deepak Raj,33,Male,Marketing,Marketing Manager,72000,8000,9,2016-05-09,Chennai,Good,8,deepak@gmail.com,9876543226,Active
+E018,Shalini Rao,26,Female,IT,Tester,46000,4000,3,2021-03-22,Bangalore,Good,4,shalini@gmail.com,9876543227,Active
+E019,Rahul Das,31,Male,HR,HR Manager,68000,7500,8,2017-10-02,Hyderabad,Excellent,7,rahul@gmail.com,9876543228,Active
+E020,Kavya Reddy,24,Female,Finance,Accountant,41000,3500,2,2022-09-26,Pune,Good,3,kavya@gmail.com,9876543229,Active
+E021,Sanjay Kumar,36,Male,IT,Senior Developer,85000,9000,11,2014-01-15,Bangalore,Excellent,10,sanjay@gmail.com,9876543230,Active
+E022,Harini Devi,28,Female,Sales,Sales Executive,38000,3000,4,2020-11-19,Chennai,Good,4,harini@gmail.com,9876543231,Active
+E023,Mohan Raj,40,Male,Finance,Finance Manager,90000,11000,15,2011-06-27,Mumbai,Excellent,11,mohan@gmail.com,9876543232,Active
+E024,Rekha Sharma,27,Female,Marketing,SEO Analyst,45000,4000,4,2020-04-13,Hyderabad,Average,3,rekha@gmail.com,9876543233,Active
+E025,Prakash Kumar,30,Male,IT,Developer,54000,5500,6,2019-02-18,Pune,Good,5,prakash@gmail.com,9876543234,Active
+E026,Asha Devi,32,Female,HR,HR Executive,43000,4000,7,2018-08-06,Bangalore,Good,5,asha@gmail.com,9876543235,Active
+E027,Gopal Singh,37,Male,Sales,Sales Manager,78000,9500,12,2013-03-11,Chennai,Excellent,10,gopal@gmail.com,9876543236,Active
+E028,Nandhini Rao,23,Female,Marketing,Social Media Executive,34000,2500,1,2023-02-20,Hyderabad,Average,2,nandhini@gmail.com,9876543237,Active
+E029,Surya Kumar,29,Male,Finance,Financial Analyst,62000,6500,5,2020-01-06,Mumbai,Good,5,surya@gmail.com,9876543238,Active
+E030,Divya Sharma,26,Female,IT,Developer,50000,5000,3,2021-12-01,Bangalore,Excellent,4,divya.sharma@gmail.com,9876543239,Active
+E031,Ravi Kumar,25,Male,IT,Developer,45000,5000,2,2022-06-15,Bangalore,Excellent,4,ravi@gmail.com,9876543210,Active
+E032,  Priya Sharma  ,28,Female,HR,HR Executive,42000,4000,4,2020-03-10,Chennai,Good,3,priya@gmail.com,9876543211,Active
+E033,Arun Raj,32,Male,IT,Senior Developer,75000,,8,2017-08-21,Bangalore,Excellent,7,arun@gmail.com,9876543212,Active
+E034,Meena Devi,,Female,Sales,Sales Executive,35000,3000,1,2023-01-12,Hyderabad,Average,2,meena@gmail.com,9876543213,Active
+E035,Kiran Kumar,30,Male,Finance,Accountant,,6000,6,2019-11-05,Mumbai,Good,5,kiran@gmail.com,9876543214,Active
+E036,Anitha Rao,27,Female,IT,Tester,48000,4500,,2021-07-18,Bangalore,Good,4,anitha@gmail.com,9876543215,Active
+E037,Suresh Babu,35,Male,Sales,Sales Manager,80000,10000,10,,Chennai,Excellent,9,suresh@gmail.com,9876543216,Active
+E038,Divya Sri,26,Female,Marketing,Marketing Executive,40000,3500,3,2021-09-14,,Average,3,divya@gmail.com,9876543217,Active
+E039,Vijay Kumar,29,Male,IT,Developer,52000,5000,5,2020-05-20,Pune,,5,vijay@gmail.com,9876543218,Active
+E040,Lakshmi Devi,31,Female,Finance,Financial Analyst,65000,7000,7,2018-04-16,Mumbai,Excellent,,lakshmi@gmail.com,9876543219,Active
