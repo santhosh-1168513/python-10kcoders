@@ -163,27 +163,34 @@ monthly_report = pd.DataFrame({
 # plt.tight_layout()
 # plt.show()
 
-import pandas as pd
-import matplotlib.pyplot as plt
+# import pandas as pd
+# import matplotlib.pyplot as plt
 
-data = pd.read_csv(r"C:\Users\sivasankar\Downloads\python pratices\Topics\employees.csv")
+# data = pd.read_csv(r"C:\Users\sivasankar\Downloads\python pratices\Topics\employees.csv")
+# data = data.drop_duplicates(subset=['Name', 'Email'])
+# data['Joining_Date'] = pd.to_datetime(data['Joining_Date'], errors='coerce')
+# data['year'] = data['Joining_Date'].dt.year
+# hired_data = data.groupby(['Department', 'year']).size().unstack(fill_value=0)
+# pivotdata = data.pivot_table(index='Department', columns='year', values='Employee_ID', aggfunc='count', fill_value=0)
+# pivotdata.plot(kind='bar', figsize=(10, 6), color=['blue', 'orange', 'green'], edgecolor='black', linewidth=1.5, alpha=0.7)
 
-data = data.drop_duplicates(subset=['Name', 'Email'])
+# plt.title('Number of Employees Hired by Department and Year', fontsize=14, fontweight='bold', color='blue')
+# plt.xlabel('Department', fontsize=12, fontweight='bold', color='blue')
+# plt.ylabel('Number of Employees Hired', fontsize=12, fontweight='bold', color='blue')
+# plt.xticks(rotation=45, ha='right', fontsize=10, fontweight='bold')
+# plt.grid(axis='y', linestyle='--', alpha=0.5, linewidth=0.5)
+# plt.tight_layout()
+# plt.show()
 
-data['Joining_Date'] = pd.to_datetime(data['Joining_Date'], errors='coerce')
+###############################################################################################################
 
-data['year'] = data['Joining_Date'].dt.year
 
-hired_data = data.groupby(['Department', 'year']).size().unstack(fill_value=0)
+###########################################################################################################@@#
 
-pivotdata = data.pivot_table(index='Department', columns='year', values='Employee_ID', aggfunc='count', fill_value=0)
+#boxplot is a type of chart that shows the distribution of a dataset. It displays the minimum, first quartile, median, third quartile, and maximum values of the data. 
+# Boxplots are useful for identifying outliers and understanding the spread of the data.
+# plt.boxplot(x, notch=False, widths=0.5, patch_artist= True, labels=none, meanline=true, meanprops=None, showmeans=True, 
 
-pivotdata.plot(kind='bar', figsize=(10, 6), color=['blue', 'orange', 'green'], edgecolor='black', linewidth=1.5, alpha=0.7)
+# data = pd.read_csv(r"C:\Users\sivasankar\Downloads\python pratices\Topics\employees.csv")
+# print(data.info())
 
-plt.title('Number of Employees Hired by Department and Year', fontsize=14, fontweight='bold', color='blue')
-plt.xlabel('Department', fontsize=12, fontweight='bold', color='blue')
-plt.ylabel('Number of Employees Hired', fontsize=12, fontweight='bold', color='blue')
-plt.xticks(rotation=45, ha='right', fontsize=10, fontweight='bold')
-plt.grid(axis='y', linestyle='--', alpha=0.5, linewidth=0.5)
-plt.tight_layout()
-plt.show()

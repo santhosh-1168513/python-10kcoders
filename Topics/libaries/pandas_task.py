@@ -290,9 +290,367 @@ print(df[df['Age'].isnull()])
 
 # fill missing vaue
 # by mean
-df['Salary'] = df['Salary'].fillna(df['Salary'].mean())
-df['Age'] = df['Age'].fillna(df['Age'].mean())
-df["City"] = df["City"].fillna("Unknown")
-df["Performance"] = df["Performance"].fillna("Not Rated")
-df['Experience'] = df['Experience'].fillna(df['Experience'].median())
-print(df.isnull().sum())
+# df['Salary'] = df['Salary'].fillna(df['Salary'].mean())
+# df['Age'] = df['Age'].fillna(df['Age'].mean())
+# df["City"] = df["City"].fillna("Unknown")
+# df["Performance"] = df["Performance"].fillna("Not Rated")
+# df['Experience'] = df['Experience'].fillna(df['Experience'].median())
+# print(df.isnull().sum())
+
+
+# detect the duplicate rows
+print(df.duplicated())
+print(df.duplicated().sum())
+print(df[df.duplicated()])
+
+# remove the duplicate rows
+df = df.drop_duplicates()
+print(df.shape)
+
+
+# clean the extra spaces in the string columns
+print(df.loc[31, 'Name'])
+
+df['Name'] = df['Name'].str.strip()
+print(df.loc[31, 'Name'])
+
+df['Name'] = df['Name'].str.lower()
+print(df.loc[0:40, 'Name'])
+
+df['Name'] = df['Name'].str.title()
+print(df.loc[0:40, 'Name'])
+
+df['Name'] = df['Name'].str.upper()
+print(df.loc[0:40, 'Name'])
+
+# replace the values in a column
+df['Department'] = df['Department'].replace('IT', 'Information Technology')
+
+df['Gender'] = df['Gender'].replace({'M': 'Male', 'F': 'Female'})
+print(df['Gender'])
+
+df["Status"] = df["Status"].replace("Active", "ACTIVE")
+print(df["Status"])
+
+# check data types of each column
+print(df.dtypes)
+
+# convert the data type of a column
+df['Salary'] = df['Salary'].astype(float)
+
+# convert date column to datetime
+df['Joining_Date']= pd.to_datetime(df['Joining_Date'], errors='coerce')
+print(df['Joining_Date'])
+
+#------------------------------------------------stage 5----------------------------------------#
+# creating a new column based on existing columns
+df['Total_compensation'] = df['Salary'] + df['Bonus']
+print(df[['Salary', 'Bonus', 'Total_compensation']])
+
+# apply is a method that allows you to apply a function along an axis of the DataFrame (either rows or columns). 
+# It can be used to create new columns based on existing data.
+# suppose
+# salary >= 60000 -> High
+# salary < 60000 -> Low
+def categorize_salary(Salary):
+    if Salary >= 60000:
+        return 'High'
+    else:
+        return 'Low'    
+
+df['Salary_Category'] = df['Salary'].apply(categorize_salary)
+print(df[['Salary', 'Salary_Category']])
+
+# lambda function is an anonymous function that can be defined in a single line. 
+# It is often used for simple operations or when you need to pass a function as an argument to another function.
+df['Salary_Category'] = df['Salary'].apply(lambda x: 'High' if x >= 60000 else 'Low')
+print(df[['Salary', 'Salary_Category']])
+
+# map is a method that allows you to map values of a Series according to an input mapping or function.
+# It can be used to transform or replace values in a column based on a mapping dictionary or a function.
+performance_map = {
+    "Excellent": 3,
+    "Good": 2,
+    "Average": 1
+}
+
+df["Performance_Score"] = df["Performance"].map(performance_map)
+print(df[["Performance", "Performance_Score"]])
+
+# np,where is a function that allows you to apply conditional logic to your DataFrame.
+# It can be used to create new columns based on conditions or to modify existing columns based on certain criteria.
+import numpy as np
+df['Salary_Level'] = np.where(df['Salary'] >= 60000, 'High', 'Low')
+print(df[['Salary', 'Salary_Level']])
+
+# to check the multiple conditions
+conditions = [
+    (df['Salary'] >= 60000) & (df['Experience'] >= 5),
+    (df['Salary'] >= 60000) & (df['Experience'] < 5),
+    (df['Salary'] < 60000) & (df['Experience'] >= 5),
+    (df['Salary'] < 60000) & (df['Experience'] < 5)
+]
+
+choices = ['High Salary & Experienced', 'High Salary & Less Experienced', 'Low Salary & Experienced', 'Low Salary & Less Experienced']
+
+df['Salary_Experience_Category'] = np.select(conditions, choices, default='Unknown')
+print(df[['Salary', 'Experience', 'Salary_Experience_Category']])   
+
+# pd.cut is a function that allows you to segment and sort data values into discrete bins or intervals.
+# It can be used to create categorical variables based on continuous data.
+
+df['Salary_Bin'] = pd.cut(df['Salary'], bins=[0, 40000, 60000, 80000, 100000],
+                           labels=['Low', 'Medium', 'High', 'Very High'])
+
+print(df[['Salary', 'Salary_Bin']])
+
+#----------------------------------------------------------------stage6 -----------------------------------------
+# group by : Group the data by something, then calculate something for each group.
+print(df.groupby('Department')['Salary'].mean().round(2))
+#            groupby dep            calculate average
+
+print(df.groupby('Department')['Salary'].sum())
+print(df.groupby('Department')['Salary'].max())
+print(df.groupby('Department')['Salary'].min())
+print(df.groupby('Department')['Salary'].count())
+print(df.groupby('Department')['Salary'].std())
+print(df.groupby('Department')['Salary'].var())
+
+# incase multiple columns
+print(df.groupby('Department')[['Salary', 'Bonus']].mean().round(2))
+
+# muliple aggregation functions
+print(df.groupby('Department')['Salary'].agg(
+    ['mean', 'sum', 'max', 'min', 'count', 'std', 'var']).round(2))
+
+# named aggreastion
+print(df.groupby('Department').agg(
+    Average_Salary=('Salary', 'mean'),
+    Total_Salary=('Salary', 'sum'),
+    Max_Salary=('Salary', 'max'),
+    Min_Salary=('Salary', 'min'),
+    Employee_Count=('Salary', 'count'),
+    Salary_StdDev=('Salary', 'std'),
+    Salary_Variance=('Salary', 'var')
+).round(2))
+
+# GROUPBY + SORTING
+result = df.groupby('Department')['Salary'].mean().sort_values(ascending=True)
+print(result)
+
+# -------------------------------------------------- stage 7---------------------------------------------
+# data and time 
+# we'll work with
+# pd.to_datetime()
+# dt.year
+# dt.month
+# dt.day
+# dt.month_name()
+# dt.day_name()
+# date filtering
+# date differences
+
+# convert the datatime
+df['Joining_Date'] = pd.to_datetime(df['Joining_Date'], errors='coerce')
+print(df["Joining_Date"].dtype) # to check
+
+# extract year, month, day, month name, day name
+df['Joining_Year'] = df['Joining_Date'].dt.year
+df['Joining_Month'] = df['Joining_Date'].dt.month
+df['Joining_Day'] = df['Joining_Date'].dt.day
+df['Joining_Month_Name'] = df['Joining_Date'].dt.month_name()
+df['Joining_Day_Name'] = df['Joining_Date'].dt.day_name()   
+df['Joining_Quarter'] = df['Joining_Date'].dt.quarter
+print(df[['Joining_Date', 'Joining_Year', 'Joining_Month', 'Joining_Day', 'Joining_Month_Name', 'Joining_Day_Name', 'Joining_Quarter']])    
+
+# date filtering
+# filter employees who joined after 2020-01-01
+print(df[df['Joining_Date'] > '2020-01-01'])
+
+# find employees who joined in 2021
+print(df[df['Joining_Year'] == 2021])
+
+# find employees who joined in January
+print(df[df['Joining_Month'] == 1])
+
+# find a data range
+print(df[(df['Joining_Date'] >= '2020-01-01') & (df['Joining_Date'] <= '2021-12-31')])
+
+
+# cal year of experience based on joining date and current date
+df['Current_Date'] = pd.to_datetime('today')
+df['Experience_Years'] = (df['Current_Date'] - df['Joining_Date']).dt.days // 365
+print(df[['Joining_Date', 'Current_Date', 'Experience_Years']])
+
+#-----------------------------------------------stage 8---------------------------------------------
+# concat is used to combine two or more DataFrames along a particular axis (rows or columns).
+# It can be used to merge datasets with similar structures or to append new data to an existing
+
+
+salary_data = pd.DataFrame({
+    "Employee_ID": ["E001", "E002", "E003", "E004", "E005"],
+    "Bonus_2026": [6000, 5000, 9000, 3500, 7000]
+})
+
+department_data = pd.DataFrame({
+    "Employee_ID": ["E001", "E002", "E003", "E004", "E005"],
+    "Manager": [
+        "Sanjay",
+        "Lakshmi",
+        "Ajay",
+        "Gopal",
+        "Mohan"
+    ]
+})
+
+# CONCAT
+df1 = pd.concat([salary_data, department_data], axis=1)
+print(df1)
+# axis=0 -> row wise
+# axis=1 -> column wise
+
+# you can reset the index of the concatenated DataFrame if needed
+
+# merge is used to combine two DataFrames based on a common column or index. 
+# It allows you to perform database-style joins (inner, outer, left, right) between datasets.
+
+result = pd.merge(df, salary_data, on='Employee_ID')
+print(result)
+
+# JOINS : LEFT, RIGHT, INNER, OUTER
+left_join = pd.merge(df, salary_data, on='Employee_ID', how='left')
+print(left_join)
+
+right_join = pd.merge(df, salary_data, on='Employee_ID', how='right')
+print(right_join)
+
+inner_join = pd.merge(df, salary_data, on='Employee_ID', how='inner')
+print(inner_join)
+
+outer_join = pd.merge(df, salary_data, on='Employee_ID', how='outer')
+print(outer_join)
+
+
+# PANDAS supports the merage using different column names 
+employee_info = pd.DataFrame({
+    "Employee_ID": ["E001", "E002", "E003"],
+    "Name": ["Ravi", "Priya", "Arun"]
+})
+
+manager_info = pd.DataFrame({
+    "Emp_ID": ["E001", "E002", "E003"],
+    "Manager": ["Sanjay", "Lakshmi", "Ajay"]
+})
+
+result = pd.merge(employee_info, manager_info, left_on='Employee_ID', right_on='Emp_ID')
+print(result)
+
+# --------------------------------------------------- stage 9---------------------------------------------
+# pivot table is a data summarization tool that allows you to reorganize and aggregate data in a tabular format.
+# It can be used to calculate summary statistics, such as sums, averages, counts, and percentages, for different combinations of categorical variables. 
+# pivot() → pivot_table() → melt() → set_index() → reset_index() → MultiIndex → rank() → shift() → rolling() → resample().
+# syntax: pd.pivot_table(data, values=None, index=None, columns=None, aggfunc='mean', fill_value=None, margins=False, dropna=True, margins_name='All', observed=False)
+
+result = pd.pivot_table(
+    df,
+    values='Salary',
+    index='Department',
+    columns='Gender',
+    aggfunc='mean',
+    fill_value=0
+)
+print(result)
+
+# Why use pivot_table()?
+# It is useful when you want to summarize data into a table for analysis.
+
+# pivot() - rearranges data without perfoming aggregation. 
+# It is used when you want to reshape the data without any calculations.
+# example
+small_df = df[["Department", "Gender", "Salary"]].dropna()
+print(small_df)
+
+# result = small_df.pivot(index='Department', columns='Gender', values='Salary')
+# print(result)
+
+# melt() - unpivots a DataFrame from wide format to long format.
+# It is used when you want to transform the data from a wide format (multiple columns)
+
+sales = pd.DataFrame({
+    "Employee": ["A", "B", "C"],
+    "Jan": [100, 200, 150],
+    "Feb": [120, 210, 170],
+    "Mar": [130, 220, 180]
+})
+
+print(sales)
+
+long_sales = sales.melt(
+    id_vars="Employee",
+    var_name="Month",
+    value_name="Sales"
+)
+print(long_sales)
+
+# set_index() - sets the DataFrame index using one or more existing columns.
+# It is used when you want to change the index of the DataFrame to a specific column
+
+df_indexed = df.set_index("Employee_ID")
+
+print(df_indexed.head())
+
+# reset_index() - resets the index of the DataFrame to the default integer index.
+# It is used when you want to revert the index back to the default integer index.
+# convert the index back to a regular column
+df_indexed = df_indexed.reset_index()
+print(df_indexed.head())
+
+# multiIndex - allows you to have multiple levels of indexing in a DataFrame.
+# It is used when you want to represent hierarchical data or perform advanced indexing operations.
+
+multi_index_df = df.set_index(["Department", "Gender"])
+print(multi_index_df.head())
+
+# rank() - assigns ranks to the values in a column or Series.
+df['Salary_Rank'] = df['Salary'].rank(ascending=False)
+print(df[['Salary', 'Salary_Rank']])
+
+# shift() - shifts the values in a column or Series by a specified number of periods.
+data = pd.DataFrame({
+    "Month": ["Jan", "Feb", "Mar", "Apr"],
+    "Sales": [1000, 1200, 1500, 1300]
+})
+
+data["Previous_Month_Sales"] = data["Sales"].shift(1)
+
+print(data)
+
+# rolling() - provides a moving window calculation on a Series or DataFrame.
+data["Rolling_Avg_Sales"] = data["Sales"].rolling(window=2).mean
+print(data)
+
+# resample() - allows you to change the frequency of time series data.
+# value_counts() - returns a Series containing counts of unique values in a column.
+# nsmallest() - returns the n smallest values from a Series or DataFrame.
+# nlargest() - returns the n largest values from a Series or DataFrame. 
+
+#-------------------------------------------------------------------------------
+# Reading data
+# ↓
+# Inspecting data
+# ↓
+# Selecting data
+# ↓
+# Filtering
+# ↓
+# Cleaning
+# ↓
+# Transforming
+# ↓
+# Grouping
+# ↓
+# Working with dates
+# ↓
+# Combining tables
+# ↓
+# Advanced analysis
