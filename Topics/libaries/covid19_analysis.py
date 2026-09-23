@@ -59,6 +59,7 @@ duplicate_records = df.duplicated().sum()
 print(f'Number of duplicate records in the dataset: {duplicate_records}')
 
 # ------------------------------------------------------------------------------------
+# Clean the data and convert dates
 
 # convert the date column to datetime format
 df['date'] = pd.to_datetime(df['date'], errors='coerce')
@@ -171,6 +172,10 @@ print(df[['country', 'date', 'new_cases', 'new_cases_smoothed']].head(20))
 df['new_death_7day_avg'] = df.groupby('country')['new_deaths'].transform(lambda x: x.rolling(7).mean())
 print(df[['country', 'date', 'new_deaths', 'new_death_7day_avg']].head(20))
 
+df["new_cases_7day_avg"] = (
+    df.groupby("country")["new_cases"]
+      .transform(lambda x: x.rolling(7).mean())
+)
 # case fatality rate
 df['case_fatality_rate'] = np.where(df['total_cases'] > 0, (df['total_deaths'] / df['total_cases'])* 100, np.nan)
 print(df[['case_fatality_rate']].head(200))
@@ -338,4 +343,269 @@ plt.xlabel("Continent", fontsize=14)
 plt.ylabel("Total Cases per Million", fontsize=14)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
+plt.show()
+
+#---------------------------------------------------------------------------------------------------------
+
+
+import matplotlib.pyplot as plt
+
+
+# Create dashboard canvas
+fig, axes = plt.subplots(
+    2, 3,
+    figsize=(22, 12)
+)
+
+fig.suptitle(
+    "COVID-19 Data Analysis Dashboard",
+    fontsize=24,
+    fontweight="bold"
+)
+
+
+
+
+ax = axes[0, 0]
+
+for country in selected_countries:
+
+    country_data = selected_data[
+        selected_data["country"] == country
+    ]
+
+    ax.plot(
+        country_data["date"],
+        country_data["total_cases"],
+        label=country,
+        linewidth=1.8
+    )
+
+ax.set_title(
+    "Total COVID-19 Cases Over Time",
+    fontsize=14,
+    fontweight="bold"
+)
+
+ax.set_xlabel("Date")
+ax.set_ylabel("Total Cases")
+
+ax.legend(fontsize=8)
+
+ax.tick_params(axis="x", rotation=45)
+
+ax.grid(
+    True,
+    alpha=0.3
+)
+
+
+
+ax = axes[0, 1]
+
+for country in selected_countries:
+
+    country_data = selected_data[
+        selected_data["country"] == country
+    ]
+
+    ax.plot(
+        country_data["date"],
+        country_data["new_cases_7day_avg"],
+        label=country,
+        linewidth=1.8
+    )
+
+ax.set_title(
+    "7-Day Moving Average of New Cases",
+    fontsize=14,
+    fontweight="bold"
+)
+
+ax.set_xlabel("Date")
+ax.set_ylabel("7-Day Average")
+
+ax.legend(fontsize=8)
+
+ax.tick_params(axis="x", rotation=45)
+
+ax.grid(
+    True,
+    alpha=0.3
+)
+
+
+
+ax = axes[0, 2]
+
+ax.barh(
+    top_10_cases["country"],
+    top_10_cases["total_cases"]
+)
+
+ax.set_title(
+    "Top 10 Countries by Total Cases",
+    fontsize=14,
+    fontweight="bold"
+)
+
+ax.set_xlabel("Total Cases")
+ax.set_ylabel("Country")
+
+ax.invert_yaxis()
+
+ax.grid(
+    axis="x",
+    alpha=0.3
+)
+
+
+ax = axes[1, 0]
+
+ax.barh(
+    top_10_deaths["country"],
+    top_10_deaths["total_deaths"]
+)
+
+ax.set_title(
+    "Top 10 Countries by Total Deaths",
+    fontsize=14,
+    fontweight="bold"
+)
+
+ax.set_xlabel("Total Deaths")
+ax.set_ylabel("Country")
+
+ax.invert_yaxis()
+
+ax.grid(
+    axis="x",
+    alpha=0.3
+)
+
+
+ax = axes[1, 1]
+
+heatmap_data = latest_data[
+    [
+        "total_cases",
+        "total_deaths",
+        "reproduction_rate",
+        "stringency_index",
+        "gdp_per_capita",
+        "median_age"
+    ]
+]
+
+correlation_matrix = heatmap_data.corr()
+
+image = ax.imshow(
+    correlation_matrix,
+    cmap="coolwarm",
+    aspect="auto"
+)
+
+fig.colorbar(
+    image,
+    ax=ax,
+    fraction=0.046,
+    pad=0.04
+)
+
+ax.set_xticks(
+    range(len(correlation_matrix.columns))
+)
+
+ax.set_xticklabels(
+    correlation_matrix.columns,
+    rotation=45,
+    ha="right",
+    fontsize=8
+)
+
+ax.set_yticks(
+    range(len(correlation_matrix.columns))
+)
+
+ax.set_yticklabels(
+    correlation_matrix.columns,
+    fontsize=8
+)
+
+# Add correlation values
+for i in range(len(correlation_matrix.columns)):
+
+    for j in range(len(correlation_matrix.columns)):
+
+        value = correlation_matrix.iloc[i, j]
+
+        ax.text(
+            j,
+            i,
+            f"{value:.2f}",
+            ha="center",
+            va="center",
+            fontsize=8
+        )
+
+ax.set_title(
+    "Correlation Heatmap",
+    fontsize=14,
+    fontweight="bold"
+)
+
+
+ax = axes[1, 2]
+
+continents = (
+    latest_data["continent"]
+    .dropna()
+    .unique()
+)
+
+data_by_continent = []
+continent_names = []
+
+for continent in continents:
+
+    values = latest_data[
+        latest_data["continent"] == continent
+    ]["total_cases_per_million"].dropna()
+
+    data_by_continent.append(values)
+
+    continent_names.append(continent)
+
+
+ax.boxplot(
+    data_by_continent,
+    tick_labels=continent_names,
+    patch_artist=True
+)
+
+ax.set_title(
+    "Cases per Million by Continent",
+    fontsize=14,
+    fontweight="bold"
+)
+
+ax.set_xlabel("Continent")
+ax.set_ylabel("Total Cases per Million")
+
+ax.tick_params(
+    axis="x",
+    rotation=30
+)
+
+ax.grid(
+    axis="y",
+    alpha=0.3
+)
+
+
+
+plt.tight_layout(
+    rect=[0, 0, 1, 0.95]
+)
+
 plt.show()
